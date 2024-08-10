@@ -9,7 +9,7 @@ export async function imports(options: OptionsStylistic = {}): Promise<TypedFlat
 
   return [
     {
-      name: 'antfu/imports/rules',
+      name: 'thewlabs/imports/rules',
       plugins: {
         antfu: pluginAntfu,
         import: pluginImport,
@@ -36,7 +36,7 @@ export async function imports(options: OptionsStylistic = {}): Promise<TypedFlat
     },
     {
       files: ['**/bin/**/*', `**/bin.${GLOB_SRC_EXT}`],
-      name: 'antfu/imports/disables/bin',
+      name: 'thewlabs/imports/disables/bin',
       rules: {
         'antfu/no-import-dist': 'off',
         'antfu/no-import-node-modules-by-path': 'off',

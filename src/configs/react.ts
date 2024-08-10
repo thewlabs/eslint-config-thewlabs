@@ -56,7 +56,7 @@ export async function react(
 
   return [
     {
-      name: 'antfu/react/setup',
+      name: 'thewlabs /react/setup',
       plugins: {
         'react': plugins['@eslint-react'],
         'react-dom': plugins['@eslint-react/dom'],
@@ -78,7 +78,7 @@ export async function react(
         },
         sourceType: 'module',
       },
-      name: 'antfu/react/rules',
+      name: 'thewlabs/react/rules',
       rules: {
         // recommended rules from @eslint-react/dom
         'react-dom/no-children-in-void-dom-elements': 'warn',

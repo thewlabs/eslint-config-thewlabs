@@ -73,7 +73,7 @@ export async function formatters(
 
   const configs: TypedFlatConfigItem[] = [
     {
-      name: 'antfu/formatter/setup',
+      name: 'thewlabs/formatter/setup',
       plugins: {
         format: pluginFormat,
       },
@@ -87,7 +87,7 @@ export async function formatters(
         languageOptions: {
           parser: parserPlain,
         },
-        name: 'antfu/formatter/css',
+        name: 'thewlabs/formatter/css',
         rules: {
           'format/prettier': [
             'error',
@@ -103,7 +103,7 @@ export async function formatters(
         languageOptions: {
           parser: parserPlain,
         },
-        name: 'antfu/formatter/scss',
+        name: 'thewlabs/formatter/scss',
         rules: {
           'format/prettier': [
             'error',
@@ -119,7 +119,7 @@ export async function formatters(
         languageOptions: {
           parser: parserPlain,
         },
-        name: 'antfu/formatter/less',
+        name: 'thewlabs/formatter/less',
         rules: {
           'format/prettier': [
             'error',
@@ -139,7 +139,7 @@ export async function formatters(
       languageOptions: {
         parser: parserPlain,
       },
-      name: 'antfu/formatter/html',
+      name: 'thewlabs/formatter/html',
       rules: {
         'format/prettier': [
           'error',
@@ -158,7 +158,7 @@ export async function formatters(
       languageOptions: {
         parser: parserPlain,
       },
-      name: 'antfu/formatter/xml',
+      name: 'thewlabs/formatter/xml',
       rules: {
         'format/prettier': [
           'error',
@@ -192,7 +192,7 @@ export async function formatters(
       languageOptions: {
         parser: parserPlain,
       },
-      name: 'antfu/formatter/markdown',
+      name: 'thewlabs/formatter/markdown',
       rules: {
         [`format/${formater}`]: [
           'error',
@@ -216,7 +216,7 @@ export async function formatters(
         languageOptions: {
           parser: parserPlain,
         },
-        name: 'antfu/formatter/slidev',
+        name: 'thewlabs/formatter/slidev',
         rules: {
           'format/prettier': [
             'error',
@@ -240,7 +240,7 @@ export async function formatters(
       languageOptions: {
         parser: parserPlain,
       },
-      name: 'antfu/formatter/astro',
+      name: 'thewlabs/formatter/astro',
       rules: {
         'format/prettier': [
           'error',
@@ -257,7 +257,7 @@ export async function formatters(
 
     configs.push({
       files: [GLOB_ASTRO, GLOB_ASTRO_TS],
-      name: 'antfu/formatter/astro/disables',
+      name: 'thewlabs/formatter/astro/disables',
       rules: {
         'style/arrow-parens': 'off',
         'style/block-spacing': 'off',
@@ -276,7 +276,7 @@ export async function formatters(
       languageOptions: {
         parser: parserPlain,
       },
-      name: 'antfu/formatter/graphql',
+      name: 'thewlabs/formatter/graphql',
       rules: {
         'format/prettier': [
           'error',
