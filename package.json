@@ -28,10 +28,10 @@
     "dist"
   ],
   "scripts": {
-    "dev": "eslint-config-inspector --config eslint.config.ts",
+    "dev": "config-inspector --config eslint.config.ts",
     "watch": "tsup --format esm,cjs --watch",
     "build": "pnpm typegen && tsup --format esm,cjs --clean --dts",
-    "build:inspector": "pnpm build && eslint-config-inspector build",
+    "build:inspector": "pnpm build && config-inspector build",
     "test": "vitest",
     "lint": "eslint --flag unstable_ts_config .",
     "typecheck": "tsc --noEmit",
