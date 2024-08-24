@@ -73,6 +73,13 @@ export interface OptionsFormatters {
   xml?: 'prettier' | boolean
 
   /**
+   * Enable formatting support for SVG.
+   *
+   * Currently only support Prettier.
+   */
+  svg?: 'prettier' | boolean
+
+  /**
    * Enable formatting support for Markdown.
    *
    * Support both Prettier and dprint.
@@ -152,6 +159,11 @@ export interface OptionsTypeScriptWithTypes {
    * @see https://typescript-eslint.io/linting/typed-linting/
    */
   tsconfigPath?: string
+
+  /**
+   * Override type aware rules.
+   */
+  overridesTypeAware?: TypedFlatConfigItem['rules']
 }
 
 export interface OptionsHasTypeScript {
