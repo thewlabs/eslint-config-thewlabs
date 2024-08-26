@@ -2,20 +2,10 @@ import type { OptionsFiles, OptionsOverrides, OptionsStylistic, TypedFlatConfigI
 import { GLOB_ASTRO } from '../globs'
 import { interopDefault } from '../utils'
 
-export async function astro(
-  options: OptionsOverrides & OptionsStylistic & OptionsFiles = {},
-): Promise<TypedFlatConfigItem[]> {
-  const {
-    files = [GLOB_ASTRO],
-    overrides = {},
-    stylistic = true,
-  } = options
+export async function astro(options: OptionsOverrides & OptionsStylistic & OptionsFiles = {}): Promise<TypedFlatConfigItem[]> {
+  const { files = [GLOB_ASTRO], overrides = {}, stylistic = true } = options
 
-  const [
-    pluginAstro,
-    parserAstro,
-    parserTs,
-  ] = await Promise.all([
+  const [pluginAstro, parserAstro, parserTs] = await Promise.all([
     interopDefault(import('eslint-plugin-astro')),
     interopDefault(import('astro-eslint-parser')),
     interopDefault(import('@typescript-eslint/parser')),
@@ -23,7 +13,7 @@ export async function astro(
 
   return [
     {
-      name: 'antfu/astro/setup',
+      name: 'thewlabs/astro/setup',
       plugins: {
         astro: pluginAstro,
       },
@@ -39,7 +29,7 @@ export async function astro(
         },
         sourceType: 'module',
       },
-      name: 'antfu/astro/rules',
+      name: 'thewlabs/astro/rules',
       processor: 'astro/client-side-ts',
       rules: {
         // use recommended rules

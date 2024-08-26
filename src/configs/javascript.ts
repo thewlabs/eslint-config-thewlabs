@@ -35,10 +35,10 @@ export async function javascript(
       linterOptions: {
         reportUnusedDisableDirectives: true,
       },
-      name: 'antfu/javascript/setup',
+      name: 'thewlabs/javascript/setup',
     },
     {
-      name: 'antfu/javascript/rules',
+      name: 'thewlabs/javascript/rules',
       plugins: {
         'antfu': pluginAntfu,
         'unused-imports': pluginUnusedImports,
@@ -224,7 +224,7 @@ export async function javascript(
     },
     {
       files: [`scripts/${GLOB_SRC}`, `cli.${GLOB_SRC_EXT}`],
-      name: 'antfu/javascript/disables/cli',
+      name: 'thewlabs/javascript/disables/cli',
       rules: {
         'no-console': 'off',
       },

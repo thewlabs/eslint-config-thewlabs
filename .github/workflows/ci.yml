@@ -1,4 +1,4 @@
-name: CI
+name: Continuous Integration
 
 on:
   push:
@@ -9,34 +9,36 @@ on:
     branches:
       - main
 
+concurrency:
+  group: ${{ github.job }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
 
-      - name: Install pnpm
+      - name: 🪄 Install pnpm
         uses: pnpm/action-setup@v4
 
-      - name: Set node
+      - name: ⬢ Set node
         uses: actions/setup-node@v4
         with:
           node-version: lts/*
 
-      - name: Setup
-        run: npm i -g @antfu/ni
+      - name: 📥 Installing project dependencies
+        run: pnpm install --no-frozen-lockfile
 
-      - name: Install
-        run: nci
+      - name: 🏗️ Building
+        run: pnpm build
 
-      - name: Build
-        run: nr build
+      - name: 🔎 Linting
+        run: pnpm lint
 
-      - name: Lint
-        run: nr lint
-
-      - name: Typecheck
-        run: nr typecheck
+      - name: 🔬 Typecheck
+        run: pnpm typecheck
 
   test:
     runs-on: ${{ matrix.os }}
@@ -48,24 +50,22 @@ jobs:
       fail-fast: false
 
     steps:
-      - uses: actions/checkout@v4
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
 
-      - name: Install pnpm
+      - name: 🪄 Install pnpm
         uses: pnpm/action-setup@v4
 
-      - name: Set node ${{ matrix.node }}
+      - name: ⬢ Set node
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node }}
+          node-version: lts/*
 
-      - name: Setup
-        run: npm i -g @antfu/ni
+      - name: 📥 Installing project dependencies
+        run: pnpm install --no-frozen-lockfile
 
-      - name: Install
-        run: nci
+      - name: 🏗️ Building
+        run: pnpm build
 
-      - name: Build
-        run: nr build
-
-      - name: Test
-        run: nr test
+      - name: 🧪 Testing
+        run: pnpm test
