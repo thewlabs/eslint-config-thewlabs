@@ -1,4 +1,4 @@
-name: CI
+name: Continuous Integration
 
 on:
   push:
@@ -9,30 +9,35 @@ on:
     branches:
       - main
 
+concurrency:
+  group: ${{ github.job }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
 
-      - name: Install pnpm
+      - name: 🪄 Install pnpm
         uses: pnpm/action-setup@v4
 
-      - name: Set node
+      - name: ⬢ Set node
         uses: actions/setup-node@v4
         with:
           node-version: lts/*
 
-      - name: Install
-        run: pnpm i
+      - name: 📥 Installing project dependencies
+        run: pnpm install --no-frozen-lockfile
 
-      - name: Build
+      - name: 🏗️ Building
         run: pnpm build
 
-      - name: Lint
+      - name: 🔎 Linting
         run: pnpm lint
 
-      - name: Typecheck
+      - name: 🔬 Typecheck
         run: pnpm typecheck
 
   test:
@@ -45,21 +50,22 @@ jobs:
       fail-fast: false
 
     steps:
-      - uses: actions/checkout@v4
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
 
-      - name: Install pnpm
+      - name: 🪄 Install pnpm
         uses: pnpm/action-setup@v4
 
-      - name: Set node ${{ matrix.node }}
+      - name: ⬢ Set node
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node }}
+          node-version: lts/*
 
-      - name: Install
-        run: pnpm i
+      - name: 📥 Installing project dependencies
+        run: pnpm install --no-frozen-lockfile
 
-      - name: Build
+      - name: 🏗️ Building
         run: pnpm build
 
-      - name: Test
+      - name: 🧪 Testing
         run: pnpm test
