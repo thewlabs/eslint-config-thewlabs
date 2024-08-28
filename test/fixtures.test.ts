@@ -107,7 +107,7 @@ function runWithConfig(name: string, configs: OptionsConfig, ...items: TypedFlat
     })
     await fs.writeFile(join(target, 'eslint.config.js'), `
 // @eslint-disable
-import thewlabs from '@thewlabs/eslint-config'
+import thewlabs from 'eslint-config-thewlabs'
 
 export default thewlabs(
   ${JSON.stringify(configs)},
