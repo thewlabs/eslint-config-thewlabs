@@ -3,11 +3,11 @@
   "type": "module",
   "version": "2.27.4",
   "packageManager": "pnpm@9.9.0",
-  "description": "thewlabs ESLint config",
+  "description": "thewlabs eslint config",
   "author": "Wilfried AGO <wilfriedago@pm.me> (https://github.com/wilfriedago)",
   "license": "MIT",
   "funding": "https://github.com/sponsors/thewlabs",
-  "homepage": "https://github.com/thewlabs/eslint-config-thewlabs",
+  "homepage": "https://github.com/thewlabs/eslint-config-thewlabs/blob/main/README.md",
   "keywords": [
     "eslint",
     "eslint-config",
