@@ -4,14 +4,27 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - '.vscode/**'
 
   pull_request:
     branches:
       - main
+    paths-ignore:
+      - '.vscode/**'
+
+  workflow_dispatch:
+
+defaults:
+  run:
+    shell: bash
 
 concurrency:
   group: ${{ github.job }}-${{ github.ref }}
   cancel-in-progress: true
+
+env:
+  STORE_PATH: ''
 
 jobs:
   lint:
@@ -20,16 +33,29 @@ jobs:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v4
 
-      - name: 🪄 Install pnpm
+      - name: 🪄 Setting up pnpm
         uses: pnpm/action-setup@v4
 
-      - name: ⬢ Set node
-        uses: actions/setup-node@v4
+      - name: 🏬 Getting pnpm store path
+        run: echo 'STORE_PATH=$(pnpm store path --silent)' >> $GITHUB_ENV
+
+      - name: ♻️ Restoring pnpm store cache
+        uses: actions/cache@v4
         with:
-          node-version: lts/*
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: 📥 Installing project dependencies
         run: pnpm install --no-frozen-lockfile
+
+      - name: ☣️ Check for Vulnerabilities
+        run: pnpm audit --production
+
+      - name: ✅ Validate all commits from PR
+        if: github.event_name == 'pull_request'
+        run: pnpm commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
 
       - name: 🏗️ Building
         run: pnpm build
@@ -53,16 +79,29 @@ jobs:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v4
 
-      - name: 🪄 Install pnpm
+      - name: 🪄 Setting up pnpm
         uses: pnpm/action-setup@v4
 
-      - name: ⬢ Set node
-        uses: actions/setup-node@v4
+      - name: 🏬 Getting pnpm store path
+        run: echo 'STORE_PATH=$(pnpm store path --silent)' >> $GITHUB_ENV
+
+      - name: ♻️ Restoring pnpm store cache
+        uses: actions/cache@v4
         with:
-          node-version: lts/*
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: 📥 Installing project dependencies
         run: pnpm install --no-frozen-lockfile
+
+      - name: ☣️ Check for Vulnerabilities
+        run: pnpm audit --production
+
+      - name: ✅ Validate all commits from PR
+        if: github.event_name == 'pull_request'
+        run: pnpm commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
 
       - name: 🏗️ Building
         run: pnpm build
