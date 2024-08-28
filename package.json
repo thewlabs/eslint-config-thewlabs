@@ -1,7 +1,7 @@
 {
   "name": "eslint-config-thewlabs",
   "type": "module",
-  "version": "2.27.4",
+  "version": "2.27.5",
   "packageManager": "pnpm@9.9.0",
   "description": "thewlabs eslint config preset",
   "author": "Wilfried AGO <wilfriedago@pm.me> (https://github.com/wilfriedago)",
