@@ -42,7 +42,7 @@
     "prepare": "simple-git-hooks",
     "stub": "tsup --format esm",
     "typegen": "esno scripts/typegen.ts",
-    "clean": "git clean -fdX dist .eslint-config-inspector"
+    "clean": "git clean -fdX .eslint-config-inspector .temp dist"
   },
   "peerDependencies": {
     "@eslint-react/eslint-plugin": "^1.5.8",
