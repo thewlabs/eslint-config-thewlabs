@@ -182,7 +182,7 @@ export async function formatters(
       languageOptions: {
         parser: parserPlain,
       },
-      name: 'antfu/formatter/svg',
+      name: 'thewlabs/formatter/svg',
       rules: {
         'format/prettier': [
           'error',
