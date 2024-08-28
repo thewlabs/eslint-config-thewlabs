@@ -34,7 +34,7 @@
     "watch": "tsup --format esm,cjs --watch",
     "build": "pnpm typegen && tsup --format esm,cjs --clean --dts",
     "build:inspector": "pnpm build && config-inspector build",
-    "test": "vitest --testTimeout 60000",
+    "test": "vitest",
     "lint": "eslint --flag unstable_ts_config .",
     "typecheck": "tsc --strict --noEmit --pretty",
     "release": "bumpp && pnpm publish",
