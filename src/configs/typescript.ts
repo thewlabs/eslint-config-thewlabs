@@ -1,7 +1,7 @@
 import process from 'node:process'
 import { GLOB_ASTRO_TS, GLOB_MARKDOWN, GLOB_TS, GLOB_TSX } from '../globs'
 import type { OptionsComponentExts, OptionsFiles, OptionsOverrides, OptionsProjectType, OptionsTypeScriptParserOptions, OptionsTypeScriptWithTypes, TypedFlatConfigItem } from '../types'
-import { pluginAntfu } from '../plugins'
+import { pluginThewlabs } from '../plugins'
 import { interopDefault, renameRules } from '../utils'
 
 export async function typescript(
@@ -93,7 +93,7 @@ export async function typescript(
       // Install the plugins without globs, so they can be configured separately.
       name: 'thewlabs/typescript/setup',
       plugins: {
-        antfu: pluginAntfu,
+        thewlabs: pluginThewlabs,
         ts: pluginTs as any,
       },
     },

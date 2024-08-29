@@ -227,11 +227,10 @@ export interface OptionsConfig extends OptionsComponentExts, OptionsProjectType 
   gitignore?: boolean | FlatGitignoreOptions
 
   /**
-   * Disable some opinionated rules to Anthony's preference.
+   * Disable some opinionated rules to thewlabs preference.
    *
    * Including:
-   * - `antfu/top-level-function`
-   * - `antfu/if-newline`
+   * - `thewlabs/top-level-function`
    *
    * @default false
    */

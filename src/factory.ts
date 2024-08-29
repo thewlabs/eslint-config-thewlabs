@@ -101,7 +101,7 @@ export function thewlabs(
     isInEditor = isInEditorEnv()
     if (isInEditor)
       // eslint-disable-next-line no-console
-      console.log('[@antfu/eslint-config] Detected running in editor, some rules are disabled.')
+      console.log('[eslint-config-thewlabs] Detected running in editor, some rules are disabled.')
   }
 
   const stylisticOptions = options.stylistic === false

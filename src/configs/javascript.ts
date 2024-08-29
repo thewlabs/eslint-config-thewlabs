@@ -1,6 +1,6 @@
 import globals from 'globals'
 import type { OptionsIsInEditor, OptionsOverrides, TypedFlatConfigItem } from '../types'
-import { pluginAntfu, pluginUnusedImports } from '../plugins'
+import { pluginThewlabs, pluginUnusedImports } from '../plugins'
 import { GLOB_SRC, GLOB_SRC_EXT } from '../globs'
 
 export async function javascript(
@@ -40,7 +40,7 @@ export async function javascript(
     {
       name: 'thewlabs/javascript/rules',
       plugins: {
-        'antfu': pluginAntfu,
+        'thewlabs': pluginThewlabs,
         'unused-imports': pluginUnusedImports,
       },
       rules: {
