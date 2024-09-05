@@ -4,7 +4,7 @@ import { isPackageExists } from 'local-pkg'
 import type { Awaitable, TypedFlatConfigItem } from './types'
 
 const scopeUrl = fileURLToPath(new URL('.', import.meta.url))
-const isCwdInScope = isPackageExists('@antfu/eslint-config')
+const isCwdInScope = isPackageExists('eslint-config-thewlabs')
 
 export const parserPlain = {
   meta: {
@@ -41,7 +41,7 @@ export async function combine(...configs: Awaitable<TypedFlatConfigItem | TypedF
  *
  * @example
  * ```ts
- * import { renameRules } from '@antfu/eslint-config'
+ * import { renameRules } from 'eslint-config-thewlabs'
  *
  * export default [{
  *   rules: renameRules(
@@ -74,7 +74,7 @@ export function renameRules(
  *
  * @example
  * ```ts
- * import { renamePluginInConfigs } from '@antfu/eslint-config'
+ * import { renamePluginInConfigs } from 'eslint-config-thewlabs'
  * import someConfigs from './some-configs'
  *
  * export default renamePluginInConfigs(someConfigs, {
@@ -127,8 +127,7 @@ export async function ensurePackages(packages: (string | undefined)[]): Promise<
   const result = await p.confirm({
     message: `${nonExistingPackages.length === 1 ? 'Package is' : 'Packages are'} required for this config: ${nonExistingPackages.join(', ')}. Do you want to install them?`,
   })
-  if (result)
-    await import('@antfu/install-pkg').then(i => i.installPackage(nonExistingPackages, { dev: true }))
+  if (result) await import('@antfu/install-pkg').then(i => i.installPackage(nonExistingPackages, { dev: true }))
 }
 
 export function isInEditorEnv(): boolean {

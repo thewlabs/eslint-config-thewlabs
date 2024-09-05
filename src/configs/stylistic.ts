@@ -1,6 +1,6 @@
 import { interopDefault } from '../utils'
 import type { OptionsOverrides, StylisticConfig, TypedFlatConfigItem } from '../types'
-import { pluginAntfu } from '../plugins'
+import { pluginTheWlabs } from '../plugins'
 
 export const StylisticConfigDefaults: StylisticConfig = {
   indent: 2,
@@ -43,22 +43,21 @@ export async function stylistic(
     {
       name: 'thewlabs/stylistic/rules',
       plugins: {
-        antfu: pluginAntfu,
         style: pluginStylistic,
+        thewlabs: pluginTheWlabs,
       },
       rules: {
         ...config.rules,
 
-        'antfu/consistent-list-newline': 'error',
+        'thewlabs/consistent-list-newline': 'error',
 
         ...(lessOpinionated
           ? {
               curly: ['error', 'all'],
             }
           : {
-              'antfu/curly': 'error',
-              'antfu/if-newline': 'error',
-              'antfu/top-level-function': 'error',
+              'thewlabs/curly': 'error',
+              'thewlabs/top-level-function': 'error',
             }
         ),
 
