@@ -133,10 +133,10 @@ export default thewlabs(
       const source = await fs.readFile(join(from, file), 'utf-8')
       const outputPath = join(output, file)
       if (content === source) {
-        if (fs.existsSync(outputPath))
-          await fs.remove(outputPath)
+        if (fs.existsSync(outputPath)) await fs.remove(outputPath)
         return
       }
+
       await expect.soft(content).toMatchFileSnapshot(join(output, file))
     }))
   }, 30_000)
