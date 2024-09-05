@@ -1,7 +1,6 @@
 import globals from 'globals'
 import type { OptionsIsInEditor, OptionsOverrides, TypedFlatConfigItem } from '../types'
-import { pluginThewlabs, pluginUnusedImports } from '../plugins'
-import { GLOB_SRC, GLOB_SRC_EXT } from '../globs'
+import { pluginTheWlabs, pluginUnusedImports } from '../plugins'
 
 export async function javascript(
   options: OptionsIsInEditor & OptionsOverrides = {},
@@ -40,7 +39,7 @@ export async function javascript(
     {
       name: 'thewlabs/javascript/rules',
       plugins: {
-        'thewlabs': pluginThewlabs,
+        'thewlabs': pluginTheWlabs,
         'unused-imports': pluginUnusedImports,
       },
       rules: {
@@ -217,13 +216,6 @@ export async function javascript(
         'yoda': ['error', 'never'],
 
         ...overrides,
-      },
-    },
-    {
-      files: [`scripts/${GLOB_SRC}`, `cli.${GLOB_SRC_EXT}`],
-      name: 'thewlabs/javascript/disables/cli',
-      rules: {
-        'no-console': 'off',
       },
     },
   ]

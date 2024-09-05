@@ -1,6 +1,5 @@
 import type { OptionsStylistic, TypedFlatConfigItem } from '../types'
-import { pluginImport, pluginThewlabs } from '../plugins'
-import { GLOB_SRC_EXT } from '../globs'
+import { pluginImport, pluginTheWlabs } from '../plugins'
 
 export async function imports(options: OptionsStylistic = {}): Promise<TypedFlatConfigItem[]> {
   const { stylistic = true } = options
@@ -10,7 +9,7 @@ export async function imports(options: OptionsStylistic = {}): Promise<TypedFlat
       name: 'thewlabs/imports/rules',
       plugins: {
         import: pluginImport,
-        thewlabs: pluginThewlabs,
+        thewlabs: pluginTheWlabs,
       },
       rules: {
         'import/first': 'error',
@@ -30,14 +29,6 @@ export async function imports(options: OptionsStylistic = {}): Promise<TypedFlat
               'import/newline-after-import': ['error', { count: 1 }],
             }
           : {},
-      },
-    },
-    {
-      files: ['**/bin/**/*', `**/bin.${GLOB_SRC_EXT}`],
-      name: 'thewlabs/imports/disables/bin',
-      rules: {
-        'thewlabs/no-import-dist': 'off',
-        'thewlabs/no-import-node-modules-by-path': 'off',
       },
     },
   ]

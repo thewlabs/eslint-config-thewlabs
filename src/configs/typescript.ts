@@ -1,7 +1,7 @@
 import process from 'node:process'
 import { GLOB_ASTRO_TS, GLOB_MARKDOWN, GLOB_TS, GLOB_TSX } from '../globs'
 import type { OptionsComponentExts, OptionsFiles, OptionsOverrides, OptionsProjectType, OptionsTypeScriptParserOptions, OptionsTypeScriptWithTypes, TypedFlatConfigItem } from '../types'
-import { pluginThewlabs } from '../plugins'
+import { pluginTheWlabs } from '../plugins'
 import { interopDefault, renameRules } from '../utils'
 
 export async function typescript(
@@ -93,7 +93,7 @@ export async function typescript(
       // Install the plugins without globs, so they can be configured separately.
       name: 'thewlabs/typescript/setup',
       plugins: {
-        thewlabs: pluginThewlabs,
+        thewlabs: pluginTheWlabs,
         ts: pluginTs as any,
       },
     },
@@ -119,7 +119,6 @@ export async function typescript(
           { '@typescript-eslint': 'ts' },
         ),
         'no-dupe-class-members': 'off',
-        'no-loss-of-precision': 'off',
         'no-redeclare': 'off',
         'no-use-before-define': 'off',
         'no-useless-constructor': 'off',
@@ -138,7 +137,6 @@ export async function typescript(
         'ts/no-extraneous-class': 'off',
         'ts/no-import-type-side-effects': 'error',
         'ts/no-invalid-void-type': 'off',
-        'ts/no-loss-of-precision': 'error',
         'ts/no-non-null-assertion': 'off',
         'ts/no-redeclare': 'error',
         'ts/no-require-imports': 'error',
@@ -173,30 +171,5 @@ export async function typescript(
           },
         }]
       : [],
-    {
-      files: ['**/*.d.?([cm])ts'],
-      name: 'thewlabs/typescript/disables/dts',
-      rules: {
-        'eslint-comments/no-unlimited-disable': 'off',
-        'import/no-duplicates': 'off',
-        'no-restricted-syntax': 'off',
-        'unused-imports/no-unused-vars': 'off',
-      },
-    },
-    {
-      files: ['**/*.{test,spec}.ts?(x)'],
-      name: 'thewlabs/typescript/disables/test',
-      rules: {
-        'no-unused-expressions': 'off',
-      },
-    },
-    {
-      files: ['**/*.js', '**/*.cjs'],
-      name: 'thewlabs/typescript/disables/cjs',
-      rules: {
-        'ts/no-require-imports': 'off',
-        'ts/no-var-requires': 'off',
-      },
-    },
   ]
 }

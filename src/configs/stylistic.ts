@@ -1,6 +1,6 @@
 import { interopDefault } from '../utils'
 import type { OptionsOverrides, StylisticConfig, TypedFlatConfigItem } from '../types'
-import { pluginThewlabs } from '../plugins'
+import { pluginTheWlabs } from '../plugins'
 
 export const StylisticConfigDefaults: StylisticConfig = {
   indent: 2,
@@ -44,7 +44,7 @@ export async function stylistic(
       name: 'thewlabs/stylistic/rules',
       plugins: {
         style: pluginStylistic,
-        thewlabs: pluginThewlabs,
+        thewlabs: pluginTheWlabs,
       },
       rules: {
         ...config.rules,

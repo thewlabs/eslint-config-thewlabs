@@ -6,6 +6,7 @@ import {
   astro,
   command,
   comments,
+  disables,
   ignores,
   imports,
   javascript,
@@ -34,17 +35,15 @@ import { formatters } from './configs/formatters'
 import { regexp } from './configs/regexp'
 import type { RuleOptions } from './typegen'
 
-const flatConfigProps: (keyof TypedFlatConfigItem)[] = [
+const flatConfigProps = [
   'name',
-  'files',
-  'ignores',
   'languageOptions',
   'linterOptions',
   'processor',
   'plugins',
   'rules',
   'settings',
-]
+] satisfies (keyof TypedFlatConfigItem)[]
 
 const VuePackages = [
   'vue',
@@ -78,7 +77,7 @@ export const defaultPluginRenaming = {
  *  The merged ESLint configurations.
  */
 export function thewlabs(
-  options: OptionsConfig & TypedFlatConfigItem = {},
+  options: OptionsConfig & Omit<TypedFlatConfigItem, 'files'> = {},
   ...userConfigs: Awaitable<TypedFlatConfigItem | TypedFlatConfigItem[] | FlatConfigComposer<any, any> | Linter.Config[]>[]
 ): FlatConfigComposer<TypedFlatConfigItem, ConfigNames> {
   const {
@@ -92,6 +91,7 @@ export function thewlabs(
     solid: enableSolid = false,
     svelte: enableSvelte = false,
     typescript: enableTypeScript = isPackageExists('typescript'),
+    unicorn: enableUnicorn = true,
     unocss: enableUnoCSS = false,
     vue: enableVue = VuePackages.some(i => isPackageExists(i)),
   } = options
@@ -99,9 +99,8 @@ export function thewlabs(
   let isInEditor = options.isInEditor
   if (isInEditor == null) {
     isInEditor = isInEditorEnv()
-    if (isInEditor)
-      // eslint-disable-next-line no-console
-      console.log('[eslint-config-thewlabs] Detected running in editor, some rules are disabled.')
+    // eslint-disable-next-line no-console
+    if (isInEditor) console.log('[eslint-config-thewlabs] Detected running in editor, some rules are disabled.')
   }
 
   const stylisticOptions = options.stylistic === false
@@ -117,10 +116,16 @@ export function thewlabs(
 
   if (enableGitignore) {
     if (typeof enableGitignore !== 'boolean') {
-      configs.push(interopDefault(import('eslint-config-flat-gitignore')).then(r => [r(enableGitignore)]))
+      configs.push(interopDefault(import('eslint-config-flat-gitignore')).then(r => [r({
+        name: 'thewlabs/gitignore',
+        ...enableGitignore,
+      })]))
     }
     else {
-      configs.push(interopDefault(import('eslint-config-flat-gitignore')).then(r => [r({ strict: false })]))
+      configs.push(interopDefault(import('eslint-config-flat-gitignore')).then(r => [r({
+        name: 'thewlabs/gitignore',
+        strict: false,
+      })]))
     }
   }
 
@@ -129,7 +134,7 @@ export function thewlabs(
 
   // Base configs
   configs.push(
-    ignores(),
+    ignores(options.ignores),
     javascript({
       isInEditor,
       overrides: getOverrides(options, 'javascript'),
@@ -142,12 +147,15 @@ export function thewlabs(
     imports({
       stylistic: stylisticOptions,
     }),
-    unicorn(),
     command(),
 
     // Optional plugins (installed but not enabled by default)
     perfectionist(),
   )
+
+  if (enableUnicorn) {
+    configs.push(unicorn(enableUnicorn === true ? {} : enableUnicorn))
+  }
 
   if (enableVue) {
     componentExts.push('vue')
@@ -272,6 +280,14 @@ export function thewlabs(
       options.formatters,
       typeof stylisticOptions === 'boolean' ? {} : stylisticOptions,
     ))
+  }
+
+  configs.push(
+    disables(),
+  )
+
+  if ('files' in options) {
+    throw new Error('[eslint-config-thewlabs] The first argument should not contain the "files" property as the options are supposed to be global. Place it in the second or later config instead.')
   }
 
   // User can optionally pass a flat config item to the first argument
